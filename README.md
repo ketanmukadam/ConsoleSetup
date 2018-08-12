@@ -38,5 +38,14 @@
    ```shell
       ubuntu@xenial:~$
    ```
-
+   These base boxes live in your %userprofile%/.vagrant.d/boxes folder. You can list all installed boxes by typing vagrant box 
+   list. You can delete boxes with vagrant box remove box/name.
+   
+5. The default *username* and *password* for VM box downloaded from vagrant website is **_vagrant/vagrant_**. By default it 
+   uses a private key and hence following command can be used to ssh into the box
+   ```shell
+      ssh -l ubuntu -p 2222 -i .vagrant/machines/default/virtualbox/private_key 127.0.0.1
+   ```
+6. You can turn the VM off by using `vagrant halt`, or suspend it with `vagrant suspend`. Then turn it on again any time with
+   `vagrant up`. Type `vagrant status` to see the current state of the VM.
 ## Final Result
