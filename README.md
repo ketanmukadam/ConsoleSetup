@@ -10,6 +10,7 @@
 
 ## Steps
 
+### Vagrant Setup 
 1. Install [Vagrant](https://www.vagrantup.com/) which provides an awesome command line utility for managing the lifecycle of virtual machines. Vagrant uses [Virtualbox](https://www.virtualbox.org/) which is a free virtualization software. 
    1. Once the software is installed, open a standard windows command prompt and type the following
    ```shell
@@ -74,5 +75,32 @@
    ```
       config.vm.provision "shell", path: "scripts/setup_ssh.sh"
    ```   
+8. If you have a SSH client installed and set in the `PATH` then vagrant will use it, else vagrant comes with a pre-packaged 
+   ssh client. The problem with any of these ssh clients is that they are all based on cygwin. I have found multiple issues 
+   with terminal when cygwin based ssh client is used to connect to remote machines or with VM box (e.g. screen size changes 
+   on switching from big monitor to laptop display or with scrolling or with color display). The best solution is to use 
+   [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). 
 
+### PuTTY Setup 
+
+1. The installation of PuTTY is simple. I prefer portable version of PuTTY in a standard location (e.g. C:\Ketan\Softwares). Add
+   its location in the PATH variable for vagrant to find it.  
+2. Next step is to install [vagrant-multi-putty](https://github.com/nickryand/vagrant-multi-putty) plugin for vagrant. Just run
+```shell
+      $ vagrant plugin install vagrant-multi-putty
+```
+3. The advantage of `vagrant-multi-putty` plugin is that the SSH-keys are automatically converted to PuTTY style .ppk format
+4. A simple way to use PuTTY now for ssh is to run this command
+```shell
+      vagrant putty <name of vm>
+```
+5. Note that PuTTY congiuration (mainly sessions) are stored in the registry under this key
+```shell
+      HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions
+```
+6. Some interesting [PuTTY Color Themes](https://github.com/AlexAkulov/putty-color-themes) can be installed and saved for
+   different sessions.
+7. Ensure to set the "Close window on exit" to **Always** as shown 
+![alt text](https://github.com/ketanmukadam/ConsoleSetup/raw/master/Putty1.jpg "Putty Screenshot 1")
+8. 
 ## Final Result
