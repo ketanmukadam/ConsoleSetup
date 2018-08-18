@@ -103,4 +103,22 @@
 7. Ensure to set the "Close window on exit" to **Always** as shown 
 ![alt text](https://github.com/ketanmukadam/ConsoleSetup/raw/master/Putty1.jpg "Putty Screenshot 1")
 8. 
+
+### ConEmu Setup 
+
+The best terminal container so far that I tested is [ConEmu](https://conemu.github.io/en/Downloads.html). It is a super awesome piece of software with super-helpful developer. The only problem, if you hit an issue, there will be some solution but it has complex configuration to figure that out. Also since it is just a container, sometimes it is hard to know if the issue is with ConEmu or the underlying terminal software that is being used. 
+
+**Problem 1**: Vagrant was using a cygwin based ssh (packaged with vagrant installer). It caused terminal & color issues (TERM=cygwin instead of xterm), especially with opening Vim in remote sessions. I replaced it with using PuTTY as default ssh client and now everything is smooth.
+
+**Problem 2**: When I switched to PuTTY, the Ctrl-Tab stopped working for switching the tabs. It turns out that When you run or attach any GUI application in ConEmu tabs – all keyboard input (read focus) passed to this child GUI application. That's why Ctrl+Tab doesn't work in your case – it is processed by PuTTY but not ConEmu. 
+
+As mentioned on this [SuperUser](https://superuser.com/questions/555809/conemu-switch-between-tabs-with-putty-tab-open#555848) page, Win+Q works, although a bit awkward to use. The default hot-key to switch focus between ConEmu and Child GUI is Win+z. It's a workable solution for me. 
+
+### Intersting Links
+
+1. [Vagrant Manager](http://vagrantmanager.com/windows/) for Windows
+2. 
+
 ## Final Result
+
+![alt text](https://github.com/ketanmukadam/ConsoleSetup/raw/master/ConEmu.jpg "ConEmu Screenshot")
