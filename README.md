@@ -81,6 +81,11 @@
    on switching from big monitor to laptop display or with scrolling or with color display). The best solution is to use 
    [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html). 
 
+9. To enable 'bridged' network (which means the VM will come up as a new machine on LAN network), enable the following in Vagrant file, which will instantiate another network interface (apart from the default NATed interface)
+```
+      config.vm.network "public_network"
+```
+
 ### PuTTY Setup 
 
 1. The installation of PuTTY is simple. I prefer portable version of PuTTY in a standard location (e.g. C:\Ketan\Softwares). Add
@@ -113,6 +118,29 @@ The best terminal container so far that I tested is [ConEmu](https://conemu.gith
 **Problem 2**: When I switched to PuTTY, the Ctrl-Tab stopped working for switching the tabs. It turns out that When you run or attach any GUI application in ConEmu tabs – all keyboard input (read focus) passed to this child GUI application. That's why Ctrl+Tab doesn't work in your case – it is processed by PuTTY but not ConEmu. 
 
 As mentioned on this [SuperUser](https://superuser.com/questions/555809/conemu-switch-between-tabs-with-putty-tab-open#555848) page, Win+Q works, although a bit awkward to use. The default hot-key to switch focus between ConEmu and Child GUI is Win+z. It's a workable solution for me. 
+
+### Misc Setup
+
+The modern Linux system provide a mechanism called "network namespaces" which can be used to isolate networks on a single server. Some sample commands from [this unix stackexchange page](https://unix.stackexchange.com/questions/210982/bind-unix-program-to-specific-network-interface) 
+
+```
+# Add a new namespace called test_ns
+ip netns add test_ns
+
+# Set test to use eth0, after this point eth0 is not usable by programs
+# outside the namespace
+ip link set eth0 netns test_ns
+
+# Bring up eth0 inside test_ns
+ip netns exec test_ns ip link set eth0 up
+
+# Use dhcp to get an ipv4 address for eth0
+ip netns exec test_ns dhclient eth0
+
+# Ping google from inside the namespace
+ip netns exec test_ns ping www.google.co.uk
+```
+
 
 ### Intersting Links
 
